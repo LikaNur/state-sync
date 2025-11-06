@@ -4,20 +4,13 @@ A real-world **React + Zustand** challenge focused on fixing a **state synchroni
 
 ---
 
-## Goal
+### Goal
 
 Prevent users from losing their unique edits when switching between views by implementing **selective state synchronization** and **row-level state forking**.
 
 ---
 
-## Author
-
-**Malika Nurmatova** — Frontend Engineer  
-[GitHub](https://github.com/LikaNur) • [LinkedIn](https://linkedin.com/in/likanur)
-
----
-
-## Tech Stack
+### Tech Stack
 
 - **Next.js 16** (App Router)  
 - **React 19**  
@@ -27,7 +20,7 @@ Prevent users from losing their unique edits when switching between views by imp
 
 ---
 
-## Run Locally
+### Run Locally
 
 ```bash
 npm install
