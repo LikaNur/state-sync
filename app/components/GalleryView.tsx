@@ -133,7 +133,7 @@ export default function GalleryView() {
                 🎨
               </button>
             </div>
-            <div className="p-2 bg-white border-t">
+            <div className="p-2 bg-white border-t border-gray-300">
               <div className="text-xs font-medium text-gray-700">Media 1</div>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function GalleryView() {
                 🎨
               </button>
             </div>
-            <div className="p-2 bg-white border-t">
+            <div className="p-2 bg-white border-t border-gray-300">
               <div className="text-xs font-medium text-gray-700">Media 2</div>
             </div>
           </div>
