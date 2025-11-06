@@ -434,7 +434,7 @@ export default function AdDraftApp() {
             🎯 The Customer Problem
           </h3>
           <p className="text-sm mb-3 text-gray-700">
-            You're building an ad drafting tool. Customers have <strong>2 media files</strong> and want to create ads:
+            You&apos;re building an ad drafting tool. Customers have <strong>2 media files</strong> and want to create ads:
           </p>
 
           <div className="grid grid-cols-2 gap-3 text-sm">
@@ -492,7 +492,7 @@ export default function AdDraftApp() {
               <p className="font-semibold text-red-700 mb-1.5 text-xs">How to Reproduce:</p>
               <ol className="list-decimal ml-5 space-y-1 text-gray-700 text-xs">
                 <li>Go to <strong>Table Mode</strong></li>
-                <li>Make any row unique (e.g., change Row 2 headline to "Audiobooks Made Easy!")</li>
+                <li>Make any row unique (e.g., change Row 2 headline to &quot;Audiobooks Made Easy!&quot;)</li>
                 <li>Switch to <strong>Gallery Mode</strong></li>
                 <li>Switch back to <strong>Table Mode</strong></li>
                 <li>❌ <strong>BUG</strong>: Your unique edits are gone! All rows are identical again.</li>
@@ -525,14 +525,14 @@ export default function AdDraftApp() {
                 (they start with the same data)
               </li>
               <li>
-                <strong>When editing in Table Mode:</strong> Each row can "fork" from the store
+                <strong>When editing in Table Mode:</strong> Each row can &quot;fork&quot; from the store
                 and maintain its own unique state
               </li>
               <li>
                 <strong>When switching views:</strong> Unique edits in any Table Mode row are preserved
               </li>
               <li>
-                <strong>Gallery Mode behavior:</strong> Should still update the store and any rows that haven't been customized
+                <strong>Gallery Mode behavior:</strong> Should still update the store and any rows that haven&apos;t been customized
               </li>
             </ul>
           </div>
@@ -546,7 +546,7 @@ export default function AdDraftApp() {
             <li>Edit in Gallery Mode → All table rows update ✅</li>
             <li>Edit in Table Mode any row → It stays unique ✅</li>
             <li>Switching back and forth → Unique states are remembered ✅</li>
-            <li>Customer doesn't lose their work when switching views ✅</li>
+            <li>Customer doesn&apos;t lose their work when switching views ✅</li>
           </ul>
         </div>
       </div>
