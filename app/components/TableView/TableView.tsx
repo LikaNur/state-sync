@@ -1,6 +1,6 @@
 // ============= TABLE VIEW COMPONENT =============
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAdStore } from "../store";
 import { AdCopy } from "../types";
 
@@ -14,9 +14,9 @@ import { AdCopy } from "../types";
  */
 export default function TableView() {
   const storeData = useAdStore((state) => state.adCopy);
-  const updateField = useAdStore((state) => state.updateField);
-  const [row1IsCustomized, setRow1IsCustomized] = useState(false);
-  const [row2IsCustomized, setRow2IsCustomized] = useState(false);
+  //   const updateField = useAdStore((state) => state.updateField);
+  const row1IsCustomized = useRef(false);
+  const row2IsCustomized = useRef(false);
 
   // Row 1 - starts with store data
   const [row1Headline, setRow1Headline] = useState(storeData.headline);
@@ -37,14 +37,14 @@ export default function TableView() {
     console.log(
       "[Table] 📥 Syncing ALL rows from store (OVERWRITES ANY UNIQUE EDITS!)"
     );
-    if (!row1IsCustomized) {
+    if (!row1IsCustomized.current) {
       setRow1Headline(storeData.headline);
       setRow1Description(storeData.description);
       setRow1CTA(storeData.callToAction);
       setRow1LaunchAs(storeData.launchAs);
     }
 
-    if (!row2IsCustomized) {
+    if (!row2IsCustomized.current) {
       setRow2Headline(storeData.headline);
       setRow2Description(storeData.description);
       setRow2CTA(storeData.callToAction);
@@ -54,19 +54,19 @@ export default function TableView() {
 
   // When Row 1 changes, update the store (so Gallery can see it)
   const handleRow1Change = (field: keyof AdCopy, value: string) => {
-    if (!row1IsCustomized) setRow1IsCustomized(true);
+    if (!row1IsCustomized.current) row1IsCustomized.current = true;
     if (field === "headline") setRow1Headline(value);
     if (field === "description") setRow1Description(value);
     if (field === "callToAction") setRow1CTA(value);
     if (field === "launchAs") setRow1LaunchAs(value as "active" | "paused");
 
     // Update store so Gallery mode can sync
-    updateField(field, value);
+    // updateField(field, value);
   };
 
   // When Row 2 changes, just update local state (don't update store)
   const handleRow2Change = (field: keyof AdCopy, value: string) => {
-    if (!row2IsCustomized) setRow2IsCustomized(true);
+    if (!row2IsCustomized.current) row2IsCustomized.current = true;
     if (field === "headline") setRow2Headline(value);
     if (field === "description") setRow2Description(value);
     if (field === "callToAction") setRow2CTA(value);
