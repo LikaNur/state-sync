@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 // ============= TABLE VIEW COMPONENT =============
 
 import { RefObject, useEffect, useState } from "react";
@@ -15,13 +14,13 @@ import { AdCopy } from "../types";
  */
 
 interface Props {
-  row1IsCustomized: RefObject<boolean>;
-  row2IsCustomized: RefObject<boolean>;
+  row1IsCustomizedRef: RefObject<boolean>;
+  row2IsCustomizedRef: RefObject<boolean>;
 }
 
 export default function TableView({
-  row1IsCustomized,
-  row2IsCustomized,
+  row1IsCustomizedRef,
+  row2IsCustomizedRef,
 }: Props) {
   const storeData = useAdStore((state) => state.adCopy);
   // Row 1 - starts with store data
@@ -43,24 +42,25 @@ export default function TableView({
     console.log(
       "[Table] 📥 Syncing ALL rows from store (OVERWRITES ANY UNIQUE EDITS!)"
     );
-    if (!row1IsCustomized.current) {
+    if (!row1IsCustomizedRef.current) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRow1Headline(storeData.headline);
       setRow1Description(storeData.description);
       setRow1CTA(storeData.callToAction);
       setRow1LaunchAs(storeData.launchAs);
     }
 
-    if (!row2IsCustomized.current) {
+    if (!row2IsCustomizedRef.current) {
       setRow2Headline(storeData.headline);
       setRow2Description(storeData.description);
       setRow2CTA(storeData.callToAction);
       setRow2LaunchAs(storeData.launchAs);
     }
-  }, [storeData]);
+  }, [row1IsCustomizedRef, row2IsCustomizedRef, storeData]);
 
   // When Row 1 changes, update the store (so Gallery can see it)
   const handleRow1Change = (field: keyof AdCopy, value: string) => {
-    if (!row1IsCustomized.current) row1IsCustomized.current = true;
+    if (!row1IsCustomizedRef.current) row1IsCustomizedRef.current = true;
     if (field === "headline") setRow1Headline(value);
     if (field === "description") setRow1Description(value);
     if (field === "callToAction") setRow1CTA(value);
@@ -72,7 +72,7 @@ export default function TableView({
 
   // When Row 2 changes, just update local state (don't update store)
   const handleRow2Change = (field: keyof AdCopy, value: string) => {
-    if (!row2IsCustomized.current) row2IsCustomized.current = true;
+    if (!row2IsCustomizedRef.current) row2IsCustomizedRef.current = true;
     if (field === "headline") setRow2Headline(value);
     if (field === "description") setRow2Description(value);
     if (field === "callToAction") setRow2CTA(value);

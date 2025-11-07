@@ -94,8 +94,8 @@ export default function AdDraftApp() {
           </div>
           <div style={{ display: viewMode === "table" ? "block" : "none" }}>
             <TableView
-              row1IsCustomized={row1IsCustomized}
-              row2IsCustomized={row2IsCustomized}
+              row1IsCustomizedRef={row1IsCustomized}
+              row2IsCustomizedRef={row2IsCustomized}
             />
           </div>
         </div>
