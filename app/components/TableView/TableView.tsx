@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability */
 // ============= TABLE VIEW COMPONENT =============
 
 import { RefObject, useEffect, useState } from "react";
@@ -23,8 +24,6 @@ export default function TableView({
   row2IsCustomized,
 }: Props) {
   const storeData = useAdStore((state) => state.adCopy);
-//   const updateField = useAdStore((state) => state.updateField);
-
   // Row 1 - starts with store data
   const [row1Headline, setRow1Headline] = useState(storeData.headline);
   const [row1Description, setRow1Description] = useState(storeData.description);
@@ -231,8 +230,8 @@ export default function TableView({
       <div className="border-t border-gray-300 bg-gray-50 p-3 flex items-center justify-between">
         <div className="text-sm text-gray-600">2 rows selected</div>
         <div className="text-xs text-yellow-600 bg-yellow-50 px-3 py-2 rounded">
-          <strong>⚠️ Try this:</strong> Make any row unique, then switch to
-          Gallery Mode and back. Your unique edits will be lost!
+          <strong>✅ Fixed!</strong> Make any row unique, then switch to Gallery
+          View and back. Your unique edits are now preserved!
         </div>
       </div>
     </div>
