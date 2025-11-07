@@ -15,6 +15,8 @@ import { AdCopy } from "../types";
 export default function TableView() {
   const storeData = useAdStore((state) => state.adCopy);
   const updateField = useAdStore((state) => state.updateField);
+  const [row1IsCustomized, setRow1IsCustomized] = useState(false);
+  const [row2IsCustomized, setRow2IsCustomized] = useState(false);
 
   // Row 1 - starts with store data
   const [row1Headline, setRow1Headline] = useState(storeData.headline);
@@ -35,19 +37,24 @@ export default function TableView() {
     console.log(
       "[Table] 📥 Syncing ALL rows from store (OVERWRITES ANY UNIQUE EDITS!)"
     );
-    setRow1Headline(storeData.headline);
-    setRow1Description(storeData.description);
-    setRow1CTA(storeData.callToAction);
-    setRow1LaunchAs(storeData.launchAs);
+    if (!row1IsCustomized) {
+      setRow1Headline(storeData.headline);
+      setRow1Description(storeData.description);
+      setRow1CTA(storeData.callToAction);
+      setRow1LaunchAs(storeData.launchAs);
+    }
 
-    setRow2Headline(storeData.headline);
-    setRow2Description(storeData.description);
-    setRow2CTA(storeData.callToAction);
-    setRow2LaunchAs(storeData.launchAs);
+    if (!row2IsCustomized) {
+      setRow2Headline(storeData.headline);
+      setRow2Description(storeData.description);
+      setRow2CTA(storeData.callToAction);
+      setRow2LaunchAs(storeData.launchAs);
+    }
   }, [storeData]);
 
   // When Row 1 changes, update the store (so Gallery can see it)
   const handleRow1Change = (field: keyof AdCopy, value: string) => {
+    if (!row1IsCustomized) setRow1IsCustomized(true);
     if (field === "headline") setRow1Headline(value);
     if (field === "description") setRow1Description(value);
     if (field === "callToAction") setRow1CTA(value);
@@ -59,6 +66,7 @@ export default function TableView() {
 
   // When Row 2 changes, just update local state (don't update store)
   const handleRow2Change = (field: keyof AdCopy, value: string) => {
+    if (!row2IsCustomized) setRow2IsCustomized(true);
     if (field === "headline") setRow2Headline(value);
     if (field === "description") setRow2Description(value);
     if (field === "callToAction") setRow2CTA(value);
