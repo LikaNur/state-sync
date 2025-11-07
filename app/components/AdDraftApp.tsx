@@ -122,14 +122,15 @@ export default function AdDraftApp() {
         <ViewToggle mode={viewMode} onChange={setViewMode} />
 
         <div className="mb-4">
-          {viewMode === "gallery" ? (
+          <div style={{ display: viewMode === "gallery" ? "block" : "none" }}>
             <GalleryView />
-          ) : (
+          </div>
+          <div style={{ display: viewMode === "table" ? "block" : "none" }}>
             <TableView
               row1IsCustomized={row1IsCustomized}
               row2IsCustomized={row2IsCustomized}
             />
-          )}
+          </div>
         </div>
 
         {/* Action Buttons */}
