@@ -12,7 +12,7 @@ Prevent users from losing their unique edits when switching between views by imp
 
 ## Demo
 
-<video src="./public/demo.gif" controls width="600"></video>
+<img src="./public/demo.gif" width="600" alt="Bug fix demo" />
 
 ---
 
