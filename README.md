@@ -10,6 +10,14 @@ Prevent users from losing their unique edits when switching between views by imp
 
 ---
 
+## Demo
+
+<video src="./app/demo.mp4" controls width="600"></video>
+
+---
+
+**Feature shown:** fixed UI sync issue between components and improved input handling.
+
 ### Tech Stack
 
 - **Next.js 16** (App Router)  
