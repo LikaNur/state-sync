@@ -1,45 +1,23 @@
-/**
- * AD DRAFT CHALLENGE - State Synchronization Problem
- *
- * THE CUSTOMER PROBLEM:
- * You're building an ad drafting tool. Customers can create ads in two modes:
- *
- * 1. GALLERY MODE: Launch 2 ads (one per media) using the SAME copy for both
- * 2. TABLE MODE: Launch 2 ads with UNIQUE copy for each media
- *
- * THE BUG:
- * When a user edits copy in Table Mode (making Row 1 and Row 2 different),
- * then switches to Gallery Mode and back to Table Mode, they lose their
- * unique edits! Both rows get reset to the Gallery copy.
- *
- * YOUR TASK:
- * Fix the state synchronization so that:
- * - Initially: Both views show the same data (synced)
- * - After editing in Table Mode: Each row maintains its unique copy
- * - Switching between views: Doesn't overwrite unique edits
- * - Gallery Mode: Still works for drafting ads with shared copy
- */
-
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAdStore } from "./store";
 import type { ViewMode } from "./types";
 import TableView from "./TableView/TableView";
 import GalleryView from "./GalleryView";
 import ViewToggle from "./ViewToggle";
 
-// ============= MAIN APP =============
 export default function AdDraftApp() {
   const [viewMode, setViewMode] = useState<ViewMode>("gallery");
   const storeData = useAdStore((state) => state.adCopy);
-  const row1IsCustomized = useRef(false);
-  const row2IsCustomized = useRef(false);
+  const adData = useAdStore((state) => state.adData);
 
   const handleLaunchAds = () => {
     alert(
       "🚀 Launching 2 ads!\n\nThis is a demo - in real life, these would be submitted to the ad platform."
     );
   };
+
+  const updateAdData = useAdStore((state) => state.updateAdData);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -89,15 +67,11 @@ export default function AdDraftApp() {
         <ViewToggle mode={viewMode} onChange={setViewMode} />
 
         <div className="mb-4">
-          <div style={{ display: viewMode === "gallery" ? "block" : "none" }}>
+          {viewMode === "gallery" ? (
             <GalleryView />
-          </div>
-          <div style={{ display: viewMode === "table" ? "block" : "none" }}>
-            <TableView
-              row1IsCustomizedRef={row1IsCustomized}
-              row2IsCustomizedRef={row2IsCustomized}
-            />
-          </div>
+          ) : (
+            <TableView adData={adData} onChangeAdData={updateAdData} />
+          )}
         </div>
 
         {/* Action Buttons */}

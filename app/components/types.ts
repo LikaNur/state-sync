@@ -1,14 +1,11 @@
-/**
- * TypeScript type definitions for Ad Draft Challenge
- */
-
-export type ViewMode = 'gallery' | 'table';
+export type ViewMode = "gallery" | "table";
 
 export interface AdCopy {
   headline: string;
   description: string;
   callToAction: string;
-  launchAs: 'active' | 'paused';
+  launchAs: "active" | "paused";
+  isModified?: boolean;
 }
 
 export interface StoreState {

@@ -1,43 +1,11 @@
-// ============= GALLERY VIEW COMPONENT =============
-
-import { useState, useEffect } from "react";
 import { useAdStore } from "./store";
 import { AdCopy } from "./types";
 
-/**
- * Gallery View - Used when customer wants to launch ads with SAME copy
- *
- * Shows the ad copy that will be used for both media items.
- * Changes here should save to the store.
- */
 export default function GalleryView() {
   const storeData = useAdStore((state) => state.adCopy);
   const updateField = useAdStore((state) => state.updateField);
 
-  const [localHeadline, setLocalHeadline] = useState(storeData.headline);
-  const [localDescription, setLocalDescription] = useState(
-    storeData.description
-  );
-  const [localCTA, setLocalCTA] = useState(storeData.callToAction);
-  const [localLaunchAs, setLocalLaunchAs] = useState(storeData.launchAs);
-
-  // BUG: This syncs from store on EVERY change, preventing any forking
-  useEffect(() => {
-    console.log("[Gallery] 🔄 Syncing from store");
-    setLocalHeadline(storeData.headline);
-    setLocalDescription(storeData.description);
-    setLocalCTA(storeData.callToAction);
-    setLocalLaunchAs(storeData.launchAs);
-  }, [storeData]);
-
   const handleChange = (field: keyof AdCopy, value: string) => {
-    // Update local state
-    if (field === "headline") setLocalHeadline(value);
-    if (field === "description") setLocalDescription(value);
-    if (field === "callToAction") setLocalCTA(value);
-    if (field === "launchAs") setLocalLaunchAs(value as "active" | "paused");
-
-    // Save to store immediately
     updateField(field, value);
   };
 
@@ -53,7 +21,7 @@ export default function GalleryView() {
               Primary Text
             </label>
             <textarea
-              value={localDescription}
+              value={storeData.description}
               onChange={(e) => handleChange("description", e.target.value)}
               placeholder="Enter primary text..."
               rows={3}
@@ -63,16 +31,15 @@ export default function GalleryView() {
 
           <div>
             <label
-              htmlFor="gallery-headline"
+              htmlFor="headline"
               className="block text-xs font-medium text-gray-700 mb-1"
             >
               Headline
             </label>
             <input
-              id="gallery-headline"
-              name="headline"
+              id="headline"
               type="text"
-              value={localHeadline}
+              value={storeData.headline}
               onChange={(e) => handleChange("headline", e.target.value)}
               placeholder="Enter headline..."
               className="w-full p-2 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -84,7 +51,7 @@ export default function GalleryView() {
               Call to Action
             </label>
             <select
-              value={localCTA}
+              value={storeData.callToAction}
               onChange={(e) => handleChange("callToAction", e.target.value)}
               className="w-full p-2 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -102,7 +69,7 @@ export default function GalleryView() {
               Launch ads as
             </label>
             <select
-              value={localLaunchAs}
+              value={storeData.launchAs}
               onChange={(e) => handleChange("launchAs", e.target.value)}
               className="w-full p-2 border border-gray-300 rounded text-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >

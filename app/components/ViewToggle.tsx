@@ -1,6 +1,5 @@
 import { ViewMode } from "./types";
 
-// ============= VIEW TOGGLE =============
 export default function ViewToggle({
   mode,
   onChange,
