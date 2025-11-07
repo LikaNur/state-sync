@@ -62,10 +62,15 @@ export default function GalleryView() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="gallery-headline"
+              className="block text-xs font-medium text-gray-700 mb-1"
+            >
               Headline
             </label>
             <input
+              id="gallery-headline"
+              name="headline"
               type="text"
               value={localHeadline}
               onChange={(e) => handleChange("headline", e.target.value)}
