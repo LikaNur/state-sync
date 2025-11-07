@@ -21,7 +21,7 @@
  */
 
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAdStore } from "./store";
 import type { ViewMode } from "./types";
 import TableView from "./TableView/TableView";
@@ -65,6 +65,8 @@ const ViewToggle = ({
 export default function AdDraftApp() {
   const [viewMode, setViewMode] = useState<ViewMode>("gallery");
   const storeData = useAdStore((state) => state.adCopy);
+  const row1IsCustomized = useRef(false);
+  const row2IsCustomized = useRef(false);
 
   const handleLaunchAds = () => {
     alert(
@@ -120,7 +122,14 @@ export default function AdDraftApp() {
         <ViewToggle mode={viewMode} onChange={setViewMode} />
 
         <div className="mb-4">
-          {viewMode === "gallery" ? <GalleryView /> : <TableView />}
+          {viewMode === "gallery" ? (
+            <GalleryView />
+          ) : (
+            <TableView
+              row1IsCustomized={row1IsCustomized}
+              row2IsCustomized={row2IsCustomized}
+            />
+          )}
         </div>
 
         {/* Action Buttons */}

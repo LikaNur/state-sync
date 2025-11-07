@@ -1,6 +1,6 @@
 // ============= TABLE VIEW COMPONENT =============
 
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useAdStore } from "../store";
 import { AdCopy } from "../types";
 
@@ -12,11 +12,18 @@ import { AdCopy } from "../types";
  *
  * BUG: When switching views, all unique edits are lost!
  */
-export default function TableView() {
+
+interface Props {
+  row1IsCustomized: RefObject<boolean>;
+  row2IsCustomized: RefObject<boolean>;
+}
+
+export default function TableView({
+  row1IsCustomized,
+  row2IsCustomized,
+}: Props) {
   const storeData = useAdStore((state) => state.adCopy);
-  //   const updateField = useAdStore((state) => state.updateField);
-  const row1IsCustomized = useRef(false);
-  const row2IsCustomized = useRef(false);
+//   const updateField = useAdStore((state) => state.updateField);
 
   // Row 1 - starts with store data
   const [row1Headline, setRow1Headline] = useState(storeData.headline);
